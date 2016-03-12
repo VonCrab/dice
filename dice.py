@@ -46,14 +46,18 @@ def percent_appears(rolls):
 
 def _isint(val):
     """
-    Returns if an input is a valid postive int
+    Returns boolean if an input is a valid postive int.
+
+    val is assumed to be some string acquired from the user.
+
+    For internal uses only.
     """
     try:
         val = int(val)
     except ValueError:
         return False
     else:
-        return True
+        return True and 0 < val
 
 def main():
     print("Dice Rolling Simulator loaded...")
@@ -66,7 +70,7 @@ def main():
 
         if sides == 'x':
             break
-        elif _isint(sides) and 0 < int(sides):
+        elif _isint(sides):
             sides = int(sides)
         else:
             print("Please enter a postive interger for the sides of the dice.\n")
@@ -76,7 +80,7 @@ def main():
 
         if num_of_dice == 'x':
             break
-        elif _isint(num_of_dice) and 0 < int(num_of_dice):
+        elif _isint(num_of_dice):
             num_of_dice = int(num_of_dice)
         else:
             print("Please enter a positive interger for the number of rolls.\n")

@@ -2,22 +2,6 @@
 
 import random
 
-# User input: a real number for the sides of a dice
-# User input: a real number for the amount of times to be rolled
-
-# Output: a random int from the faces rolled
-# Final output: a print out of all the times a face was rolled
-
-
-# Option 1: generate a list of each dice face, sample the list
-# Option 2: generate a random int for a range based on faces
-
-# Subgoals: User inputs = real numbers only
-# Subgoals: Allow the user to keep rolling without have to x program
-# Subgoals: Percentage each side appeared
-
-# TODO: Check that input values are > 0
-
 def roll(sides):
     '''
     Returns a pesudo-random integer within the bounds of 1 to sides. Assumes sides is a non-negative integer.
@@ -60,6 +44,55 @@ def percent_appears(rolls):
 
     return rolls
 
-# TODO: craft the main function for the user
-# TODO: Needs to include the ability to take and check real numbers
-# TODO: Needs to have an infinite loop that the user can keep rolling
+def _isint(val):
+    """
+    Returns if an input is a valid postive int
+    """
+    try:
+        val = int(val)
+    except ValueError:
+        return False
+    else:
+        return True
+
+def main():
+    print("Dice Rolling Simulator loaded...")
+
+    while True:
+
+        print("Enter 'x' to quit at anytime.")
+
+        sides = raw_input("Please enter the number of sides on a dice: ")
+
+        if sides == 'x':
+            break
+        elif _isint(sides) and 0 < int(sides):
+            sides = int(sides)
+        else:
+            print("Please enter a postive interger for the sides of the dice.\n")
+            continue
+
+        num_of_dice = raw_input("Please enter the number of dice to roll: ")
+
+        if num_of_dice == 'x':
+            break
+        elif _isint(num_of_dice) and 0 < int(num_of_dice):
+            num_of_dice = int(num_of_dice)
+        else:
+            print("Please enter a positive interger for the number of rolls.\n")
+
+
+        rolls = dice_sim(sides, num_of_dice)
+
+        # returns {SIDE: (NUM OF TIMES ROLLED, PERCENT OF TOTAL ROLLS)}
+        rolls_percents = percent_appears(rolls)
+
+        for side in rolls_percents:
+            print("Side %d: " % side),
+            print("%d total rolls, " % rolls_percents[side][0]),
+            print("%0.2f percent of rolls" % rolls_percents[side][1])
+
+        print
+
+if __name__ == '__main__':
+    main()
